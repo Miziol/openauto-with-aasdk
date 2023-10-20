@@ -10,3 +10,6 @@ set(AASDK_PROTO_LIBRARIES "${CMAKE_SOURCE_DIR}/aasdk/lib/libaasdk_proto.so")
 
 add_subdirectory(aasdk)
 add_subdirectory(openauto)
+
+add_dependencies(autoapp aasdk)
+add_dependencies(btservice aasdk)
