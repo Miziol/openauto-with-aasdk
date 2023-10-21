@@ -2,15 +2,14 @@
 
 ### Build for Raspberry Pi 3
 
-1. install packages for aasdk
+1. install packages for build
 
+       # packages for aasdk
        sudo apt install -y libboost-all-dev libusb-1.0-0-dev libssl-dev cmake libprotobuf-dev protobuf-c-compiler protobuf-compiler
+       # packages for openauto
+       sudo apt install -y libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediawidgets5 qtmultimedia5-dev libqt5bluetooth5 libqt5bluetooth5-bin qtconnectivity5-dev pulseaudio librtaudio-dev
 
-2. install packages for openauto
-
-       sudo apt install -y libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediawidgets5 qtmultimedia5-dev libqt5bluetooth5 libqt5bluetooth5-bin qtconnectivity5-dev pulseaudio librtaudio-dev librtaudio5a
-
-3. compile ilclient
+2. compile ilclient
 
        sudo apt install -y libraspberrypi-doc libraspberrypi-dev
        cd /opt/vc/src/hello_pi/libs/ilclient
@@ -24,7 +23,7 @@
        make
        )
    
-4. build
+3. build
 
        # clone this repository
        git clone --recursive https://github.com/imchos/openauto-dhu.git
@@ -36,11 +35,11 @@
        make -j2
        cd ..
 
-5. add udev rules
+4. add udev rules
 
        sudo echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="*", ATTR{idProduct}=="*", MODE="0660", GROUP="plugdev"' | sudo tee /etc/udev/rules.d/99-openauto.rules
        sudo udevadm control --reload-rules && sudo udevadm trigger
 
-6. run
+5. run
 
        ./openauto/bin/autoapp
