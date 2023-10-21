@@ -36,6 +36,11 @@
        make -j2
        cd ..
 
-5. run
+5. add udev rules
+
+       sudo echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="*", ATTR{idProduct}=="*", MODE="0660", GROUP="plugdev"' | sudo tee /etc/udev/rules.d/99-openauto.rules
+       sudo udevadm control --reload-rules && sudo udevadm trigger
+
+6. run
 
        ./openauto/bin/autoapp
