@@ -1,3 +1,7 @@
+# Openauto with aasdk
+
+Openauto with aasdk is a clone on imchos openauto-dhu repository with removed submodules references. Original README is below.
+
 # OpenAuto Desktop Head Unit
 
 ### Build for Raspberry Pi 3
