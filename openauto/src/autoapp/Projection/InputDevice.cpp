@@ -203,7 +203,7 @@ bool InputDevice::handleKeyEvent(QEvent* event, QKeyEvent* key)
     case Qt::Key_X:
     case Qt::Key_Y:
     case Qt::Key_Z:
-        buttonCode = aasdk::proto::enums::ButtonCode::A + (key->key() - Qt::Key_A);
+        buttonCode = static_cast<aasdk::proto::enums::ButtonCode::Enum>(aasdk::proto::enums::ButtonCode::A + (key->key() - Qt::Key_A));
         break;
 
     case Qt::Key_0:
@@ -216,7 +216,7 @@ bool InputDevice::handleKeyEvent(QEvent* event, QKeyEvent* key)
     case Qt::Key_7:
     case Qt::Key_8:
     case Qt::Key_9:
-        buttonCode = aasdk::proto::enums::ButtonCode::NUMBER_0 + (key->key() - Qt::Key_0);
+        buttonCode = static_cast<aasdk::proto::enums::ButtonCode::Enum>(aasdk::proto::enums::ButtonCode::NUMBER_0 + (key->key() - Qt::Key_0));
         break;
 
     default:
