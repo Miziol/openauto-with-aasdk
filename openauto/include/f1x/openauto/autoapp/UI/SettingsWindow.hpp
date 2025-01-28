@@ -56,7 +56,6 @@ private:
     void load();
     void loadButtonCheckBoxes();
     void saveButtonCheckBoxes();
-    void saveButtonCheckBox(const QCheckBox* checkBox, configuration::IConfiguration::ButtonCodes& buttonCodes, aasdk::proto::enums::ButtonCode::Enum buttonCode);
     void setButtonCheckBoxes(bool value);
 
     Ui::SettingsWindow* ui_;

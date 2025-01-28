@@ -179,50 +179,66 @@ void SettingsWindow::loadButtonCheckBoxes()
 
 void SettingsWindow::setButtonCheckBoxes(bool value)
 {
-    ui_->checkBoxPlayButton->setChecked(value);
-    ui_->checkBoxPauseButton->setChecked(value);
-    ui_->checkBoxTogglePlayButton->setChecked(value);
-    ui_->checkBoxNextTrackButton->setChecked(value);
-    ui_->checkBoxPreviousTrackButton->setChecked(value);
-    ui_->checkBoxHomeButton->setChecked(value);
-    ui_->checkBoxPhoneButton->setChecked(value);
-    ui_->checkBoxCallEndButton->setChecked(value);
-    ui_->checkBoxVoiceCommandButton->setChecked(value);
-    ui_->checkBoxLeftButton->setChecked(value);
-    ui_->checkBoxRightButton->setChecked(value);
-    ui_->checkBoxUpButton->setChecked(value);
-    ui_->checkBoxDownButton->setChecked(value);
+    ui_->checkBoxEnterButton->setChecked(value);
+    ui_->checkBoxArrowsButton->setChecked(value);
     ui_->checkBoxScrollWheelButton->setChecked(value);
     ui_->checkBoxBackButton->setChecked(value);
-    ui_->checkBoxEnterButton->setChecked(value);
+    ui_->checkBoxHomeButton->setChecked(value);
+    ui_->checkBoxMediaButton->setChecked(value);
+    ui_->checkBoxVoiceCommandButton->setChecked(value);
+    ui_->checkBoxCharsButton->setChecked(value);
+    ui_->checkBoxLettersButton->setChecked(value);
+    ui_->checkBoxNumbersButton->setChecked(value);
 }
 
 void SettingsWindow::saveButtonCheckBoxes()
 {
     configuration::IConfiguration::ButtonCodes buttonCodes;
-    this->saveButtonCheckBox(ui_->checkBoxPlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::PLAY);
-    this->saveButtonCheckBox(ui_->checkBoxPauseButton, buttonCodes, aasdk::proto::enums::ButtonCode::PAUSE);
-    this->saveButtonCheckBox(ui_->checkBoxTogglePlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
-    this->saveButtonCheckBox(ui_->checkBoxNextTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::NEXT);
-    this->saveButtonCheckBox(ui_->checkBoxPreviousTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::PREV);
-    this->saveButtonCheckBox(ui_->checkBoxHomeButton, buttonCodes, aasdk::proto::enums::ButtonCode::HOME);
-    this->saveButtonCheckBox(ui_->checkBoxPhoneButton, buttonCodes, aasdk::proto::enums::ButtonCode::PHONE);
-    this->saveButtonCheckBox(ui_->checkBoxCallEndButton, buttonCodes, aasdk::proto::enums::ButtonCode::CALL_END);
-    this->saveButtonCheckBox(ui_->checkBoxVoiceCommandButton, buttonCodes, aasdk::proto::enums::ButtonCode::MICROPHONE_1);
-    this->saveButtonCheckBox(ui_->checkBoxLeftButton, buttonCodes, aasdk::proto::enums::ButtonCode::LEFT);
-    this->saveButtonCheckBox(ui_->checkBoxRightButton, buttonCodes, aasdk::proto::enums::ButtonCode::RIGHT);
-    this->saveButtonCheckBox(ui_->checkBoxUpButton, buttonCodes, aasdk::proto::enums::ButtonCode::UP);
-    this->saveButtonCheckBox(ui_->checkBoxDownButton, buttonCodes, aasdk::proto::enums::ButtonCode::DOWN);
-    this->saveButtonCheckBox(ui_->checkBoxScrollWheelButton, buttonCodes, aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
-    this->saveButtonCheckBox(ui_->checkBoxBackButton, buttonCodes, aasdk::proto::enums::ButtonCode::BACK);
-    this->saveButtonCheckBox(ui_->checkBoxEnterButton, buttonCodes, aasdk::proto::enums::ButtonCode::ENTER);
 
-    if (true) { // TODO add checkbox
-        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::SPACE);
-        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::BACKSPACE);
+    if (ui_->checkBoxEnterButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::ENTER);
     }
 
-    if (true) { // TODO add checkbox
+    if (ui_->checkBoxArrowsButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::UP);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::LEFT);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::RIGHT);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::DOWN);
+    }
+
+    if (ui_->checkBoxScrollWheelButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
+    }
+
+    if (ui_->checkBoxBackButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::BACK);
+    }
+
+    if (ui_->checkBoxHomeButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::HOME);
+    }
+
+    if (ui_->checkBoxMediaButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PLAY);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PAUSE);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::NEXT);
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PREV);
+    }
+
+    if (ui_->checkBoxVoiceCommandButton->isChecked()) {
+        buttonCode.push_back(aasdk::proto::enums::ButtonCode::MICROPHONE_1);
+    }
+
+    if (ui_->checkBoxCharsButton->isChecked()) {
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::BACKSPACE);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::SPACE);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::COMMA);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::DOT);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::SLASH);
+    }
+
+    if (ui_->checkBoxLettersButton->isChecked()) {
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::A);
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::B);
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::C);
@@ -251,7 +267,7 @@ void SettingsWindow::saveButtonCheckBoxes()
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::Z);
     }
 
-    if (true) { // TODO add checkbox
+    if (ui_->checkBoxNumbersButton->isChecked()) {
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::NUMBER_0);
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::NUMBER_1);
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::NUMBER_2);
@@ -264,21 +280,7 @@ void SettingsWindow::saveButtonCheckBoxes()
         buttonCodes.push_back(aasdk::proto::enums::ButtonCode::NUMBER_9);
     }
 
-    if (true) { // TODO add checkbox
-        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::COMMA);
-        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::DOT);
-        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::SLASH);
-    }
-
     configuration_->setButtonCodes(buttonCodes);
-}
-
-void SettingsWindow::saveButtonCheckBox(const QCheckBox* checkBox, configuration::IConfiguration::ButtonCodes& buttonCodes, aasdk::proto::enums::ButtonCode::Enum buttonCode)
-{
-    if(checkBox->isChecked())
-    {
-        buttonCodes.push_back(buttonCode);
-    }
 }
 
 void SettingsWindow::onUpdateScreenDPI(int value)

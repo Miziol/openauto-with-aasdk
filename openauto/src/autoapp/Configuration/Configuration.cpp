@@ -65,6 +65,12 @@ const std::string Configuration::cInputScrollWheelButtonKey = "Input.ScrollWheel
 const std::string Configuration::cInputBackButtonKey = "Input.BackButton";
 const std::string Configuration::cInputEnterButtonKey = "Input.EnterButton";
 
+const std::string Configuration::cInputArrowsButtonKey = "Input.ArrowsButtons"
+const std::string Configuration::cInputMediaButtonKey = "Input.MediaButtons"
+const std::string Configuration::cInputCharsButtonKey = "Input.CharsButtons"
+const std::string Configuration::cInputLettersButtonKey = "Input.LettersButtons"
+const std::string Configuration::cInputNumbersButtonKey = "Input.NumbersButtons"
+
 Configuration::Configuration()
 {
     this->load();
@@ -298,22 +304,53 @@ void Configuration::setAudioOutputBackendType(AudioOutputBackendType value)
 
 void Configuration::readButtonCodes(boost::property_tree::ptree& iniConfig)
 {
-    this->insertButtonCode(iniConfig, cInputPlayButtonKey, aasdk::proto::enums::ButtonCode::PLAY);
-    this->insertButtonCode(iniConfig, cInputPauseButtonKey, aasdk::proto::enums::ButtonCode::PAUSE);
-    this->insertButtonCode(iniConfig, cInputTogglePlayButtonKey, aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
-    this->insertButtonCode(iniConfig, cInputNextTrackButtonKey, aasdk::proto::enums::ButtonCode::NEXT);
-    this->insertButtonCode(iniConfig, cInputPreviousTrackButtonKey, aasdk::proto::enums::ButtonCode::PREV);
-    this->insertButtonCode(iniConfig, cInputHomeButtonKey, aasdk::proto::enums::ButtonCode::HOME);
-    this->insertButtonCode(iniConfig, cInputPhoneButtonKey, aasdk::proto::enums::ButtonCode::PHONE);
-    this->insertButtonCode(iniConfig, cInputCallEndButtonKey, aasdk::proto::enums::ButtonCode::CALL_END);
-    this->insertButtonCode(iniConfig, cInputVoiceCommandButtonKey, aasdk::proto::enums::ButtonCode::MICROPHONE_1);
-    this->insertButtonCode(iniConfig, cInputLeftButtonKey, aasdk::proto::enums::ButtonCode::LEFT);
-    this->insertButtonCode(iniConfig, cInputRightButtonKey, aasdk::proto::enums::ButtonCode::RIGHT);
-    this->insertButtonCode(iniConfig, cInputUpButtonKey, aasdk::proto::enums::ButtonCode::UP);
-    this->insertButtonCode(iniConfig, cInputDownButtonKey, aasdk::proto::enums::ButtonCode::DOWN);
-    this->insertButtonCode(iniConfig, cInputScrollWheelButtonKey, aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
-    this->insertButtonCode(iniConfig, cInputBackButtonKey, aasdk::proto::enums::ButtonCode::BACK);
-    this->insertButtonCode(iniConfig, cInputEnterButtonKey, aasdk::proto::enums::ButtonCode::ENTER);
+    if (iniConfig.get<bool>(cInputEnterButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::ENTER);
+    }
+
+    if (iniConfig.get<bool>(cInputArrowsButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::UP);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::LEFT);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::RIGHT);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::DOWN);
+    }
+
+    if (iniConfig.get<bool>(cInputScrollWheelButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
+    }
+
+    if (iniConfig.get<bool>(cInputBackButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::BACK);
+    }
+
+    if (iniConfig.get<bool>(cInputHomeButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::HOME);
+    }
+
+    if (iniConfig.get<bool>(cInputMediaButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::PLAY);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::PAUSE);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::NEXT);
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::PREV);
+    }
+
+    if (iniConfig.get<bool>(cInputVoiceCommandButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::MICROPHONE_1);
+    }
+
+    if (iniConfig.get<bool>(cInputCharsButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::ENTER);
+    }
+
+    if (iniConfig.get<bool>(cInputLettersButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::ENTER);
+    }
+
+    if (iniConfig.get<bool>(cInputNumbersButtonKey, false)) {
+        buttonCodes_.push_back(aasdk::proto::enums::ButtonCode::ENTER);
+    }
+
 }
 
 void Configuration::insertButtonCode(boost::property_tree::ptree& iniConfig, const std::string& buttonCodeKey, aasdk::proto::enums::ButtonCode::Enum buttonCode)

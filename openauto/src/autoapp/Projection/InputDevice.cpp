@@ -116,15 +116,7 @@ bool InputDevice::handleKeyEvent(QEvent* event, QKeyEvent* key)
     case Qt::Key_Home:
         buttonCode = aasdk::proto::enums::ButtonCode::HOME;
         break;
-/*
-    case Qt::Key_P:
-        buttonCode = aasdk::proto::enums::ButtonCode::PHONE;
-        break;
-
-    case Qt::Key_O:
-        buttonCode = aasdk::proto::enums::ButtonCode::CALL_END;
-        break;
-*/
+        
     case Qt::Key_MediaPlay:
         buttonCode = aasdk::proto::enums::ButtonCode::PLAY;
         break;
