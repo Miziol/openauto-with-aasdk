@@ -44,7 +44,6 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
     connect(ui_->pushButtonClearSelection, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, false));
     connect(ui_->pushButtonSelectAll, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, true));
     connect(ui_->pushButtonResetToDefaults, &QPushButton::clicked, this, &SettingsWindow::onResetToDefaults);
-    connect(ui_->pushButtonShowBindings, &QPushButton::clicked, this, &SettingsWindow::onShowBindings);
 }
 
 SettingsWindow::~SettingsWindow()
@@ -159,22 +158,16 @@ void SettingsWindow::load()
 void SettingsWindow::loadButtonCheckBoxes()
 {
     const auto& buttonCodes = configuration_->getButtonCodes();
-    ui_->checkBoxPlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PLAY) != buttonCodes.end());
-    ui_->checkBoxPauseButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PAUSE) != buttonCodes.end());
-    ui_->checkBoxTogglePlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::TOGGLE_PLAY) != buttonCodes.end());
-    ui_->checkBoxNextTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::NEXT) != buttonCodes.end());
-    ui_->checkBoxPreviousTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PREV) != buttonCodes.end());
-    ui_->checkBoxHomeButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::HOME) != buttonCodes.end());
-    ui_->checkBoxPhoneButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PHONE) != buttonCodes.end());
-    ui_->checkBoxCallEndButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::CALL_END) != buttonCodes.end());
-    ui_->checkBoxVoiceCommandButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::MICROPHONE_1) != buttonCodes.end());
-    ui_->checkBoxLeftButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::LEFT) != buttonCodes.end());
-    ui_->checkBoxRightButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::RIGHT) != buttonCodes.end());
-    ui_->checkBoxUpButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::UP) != buttonCodes.end());
-    ui_->checkBoxDownButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::DOWN) != buttonCodes.end());
+    ui_->checkBoxEnterButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::ENTER) != buttonCodes.end());
+    ui_->checkBoxArrowsButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::UP) != buttonCodes.end());
     ui_->checkBoxScrollWheelButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::SCROLL_WHEEL) != buttonCodes.end());
     ui_->checkBoxBackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::BACK) != buttonCodes.end());
-    ui_->checkBoxEnterButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::ENTER) != buttonCodes.end());
+    ui_->checkBoxHomeButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::HOME) != buttonCodes.end());
+    ui_->checkBoxMediaButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PLAY) != buttonCodes.end());
+    ui_->checkBoxVoiceCommandButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::MICROPHONE_1) != buttonCodes.end());
+    ui_->checkBoxCharsButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::BACKSPACE) != buttonCodes.end());
+    ui_->checkBoxLettersButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::A) != buttonCodes.end());
+    ui_->checkBoxNumbersButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::NUMBER_0) != buttonCodes.end());
 }
 
 void SettingsWindow::setButtonCheckBoxes(bool value)
@@ -196,38 +189,38 @@ void SettingsWindow::saveButtonCheckBoxes()
     configuration::IConfiguration::ButtonCodes buttonCodes;
 
     if (ui_->checkBoxEnterButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::ENTER);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::ENTER);
     }
 
     if (ui_->checkBoxArrowsButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::UP);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::LEFT);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::RIGHT);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::DOWN);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::UP);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::LEFT);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::RIGHT);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::DOWN);
     }
 
     if (ui_->checkBoxScrollWheelButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
     }
 
     if (ui_->checkBoxBackButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::BACK);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::BACK);
     }
 
     if (ui_->checkBoxHomeButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::HOME);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::HOME);
     }
 
     if (ui_->checkBoxMediaButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PLAY);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PAUSE);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::NEXT);
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::PREV);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::PLAY);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::PAUSE);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::NEXT);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::PREV);
     }
 
     if (ui_->checkBoxVoiceCommandButton->isChecked()) {
-        buttonCode.push_back(aasdk::proto::enums::ButtonCode::MICROPHONE_1);
+        buttonCodes.push_back(aasdk::proto::enums::ButtonCode::MICROPHONE_1);
     }
 
     if (ui_->checkBoxCharsButton->isChecked()) {
