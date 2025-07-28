@@ -43,7 +43,7 @@ void QtVideoOutput::createVideoOutput()
 {
     OPENAUTO_LOG(debug) << "[QtVideoOutput] create.";
     videoWidget_ = std::make_unique<QVideoWidget>();
-    mediaPlayer_ = std::make_unique<QMediaPlayer>(nullptr, QMediaPlayer::StreamPlayback);
+    mediaPlayer_ = std::make_unique<QMediaPlayer>();
 }
 
 
@@ -77,7 +77,7 @@ void QtVideoOutput::onStartPlayback()
     videoWidget_->show();
 
     mediaPlayer_->setVideoOutput(videoWidget_.get());
-    mediaPlayer_->setMedia(QMediaContent(), &videoBuffer_);
+    mediaPlayer_->setSourceDevice(&videoBuffer_, QString("video/h264"));
     mediaPlayer_->play();
 }
 
